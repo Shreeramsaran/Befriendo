@@ -1,47 +1,103 @@
 import "./rightbar.css"
+import { Users } from "../../dummyData"
+import Online from "../online/Online"
+export default function Rightbar({ profile }) {
+  const HomeRightbar = () => {
+    return (
+      <>
+        <div className="birthdayContainer">
+          <img className="birthdayImg" src="assets/gift.png" />
+          <span className="birthdayText">
+            <b>Pallu </b> and <b>3 other friends</b> have birthday today.
+          </span>
+        </div>
+        <img src="assets/ad.png" className="rightbarAd" />
+        <h4 className="rightbarTitle">Online Friends</h4>
+        <ul className="rightbarFriendList">
+          {Users.map(u => (
+            <Online key={u.id} user={u} />
+          ))}
+        </ul>
+      </>
+    )
+  }
 
-export default function Rightbar() {
+  const ProfileRightbar = () => {
+    return (
+      <>
+        <h4 className="rightbarTitle">User information</h4>
+        <div className="rightbarInfo">
+          <div className="rightbarInfoItem">
+            <span className="rightbarInfoKey">City:</span>
+            <span className="rightbarInfoValue">Patna</span>
+          </div>
+          <div className="rightbarInfoItem">
+            <span className="rightbarInfoKey">From:</span>
+            <span className="rightbarInfoValue">Bihar</span>
+          </div>
+          <div className="rightbarInfoItem">
+            <span className="rightbarInfoKey">Relationship:</span>
+            <span className="rightbarInfoValue">Married</span>
+          </div>
+        </div>
+        <h4 className="rightbarTitle">User friends</h4>
+        <div className="rightbarFollowings">
+          <div className="rightbarFollowing">
+            <img
+              src="assets/person/2.jpeg"
+              alt=""
+              className="rightbarFollowingImg"
+            />
+            <span className="rightbarFollowingName">Shreeram</span>
+          </div>
+          <div className="rightbarFollowing">
+            <img
+              src="assets/person/1.jpeg"
+              alt=""
+              className="rightbarFollowingImg"
+            />
+            <span className="rightbarFollowingName">Shubham</span>
+          </div>
+          <div className="rightbarFollowing">
+            <img
+              src="assets/person/3.jpeg"
+              alt=""
+              className="rightbarFollowingImg"
+            />
+            <span className="rightbarFollowingName">Palash</span>
+          </div>
+          <div className="rightbarFollowing">
+            <img
+              src="assets/person/4.jpeg"
+              alt=""
+              className="rightbarFollowingImg"
+            />
+            <span className="rightbarFollowingName">Dishant</span>
+          </div>
+          <div className="rightbarFollowing">
+            <img
+              src="assets/person/8.jpeg"
+              alt=""
+              className="rightbarFollowingImg"
+            />
+            <span className="rightbarFollowingName">Harsh</span>
+          </div>
+          <div className="rightbarFollowing">
+            <img
+              src="assets/person/10.jpeg"
+              alt=""
+              className="rightbarFollowingImg"
+            />
+            <span className="rightbarFollowingName">Garv</span>
+          </div>
+        </div>
+      </>
+    );
+  };
   return (
     <div className="rightbar">
       <div className="rightbarWrapper">
-        <div className="birthdayContainer">
-          <img className="birthdayImg" src="assets/gift.png"/>
-          <span className="birthdayText">
-            <b>Pallu Padoda</b> and <b>3 other friends</b> have birthday today.
-          </span>
-        </div>
-        <img src="assets/ad.png" className="rightbarAd"/>
-        <h4 className="rightbarTitle">Online Friends</h4>
-        <ul className="rightbarFriendList">
-          <li className="rightbarFriend">
-            <div className="rightbarProfileImgConatiner">
-              <img className="rightbarProfileImg" src="assets/person/3.jpeg"/>
-              <span className="rightbarOnline"></span>
-            </div>
-            <span className="rightbarUsername">Arjav Mandu</span>
-          </li>
-          <li className="rightbarFriend">
-            <div className="rightbarProfileImgConatiner">
-              <img className="rightbarProfileImg" src="assets/person/3.jpeg"/>
-              <span className="rightbarOnline"></span>
-            </div>
-            <span className="rightbarUsername">Arjav Mandu</span>
-          </li>
-          <li className="rightbarFriend">
-            <div className="rightbarProfileImgConatiner">
-              <img className="rightbarProfileImg" src="assets/person/3.jpeg"/>
-              <span className="rightbarOnline"></span>
-            </div>
-            <span className="rightbarUsername">Arjav Mandu</span>
-          </li>
-          <li className="rightbarFriend">
-            <div className="rightbarProfileImgConatiner">
-              <img className="rightbarProfileImg" src="assets/person/3.jpeg"/>
-              <span className="rightbarOnline"></span>
-            </div>
-            <span className="rightbarUsername">Arjav Mandu</span>
-          </li>
-        </ul>
+        <ProfileRightbar />
       </div>
     </div>
   )
