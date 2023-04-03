@@ -94,7 +94,7 @@ router.get("/timeline/:userId", async (req, res)=>{
         res.status(500).json(err);
     }
 });
-/*
+
 // Get User's all post
 router.get("/profile/:username", async (req, res)=>{
     try{
@@ -106,5 +106,5 @@ router.get("/profile/:username", async (req, res)=>{
         res.status(500).json(err);
     }
 });
-*/
+
 module.exports = router;

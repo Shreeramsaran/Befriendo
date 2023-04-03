@@ -13,7 +13,7 @@ export default function Post({post}) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(`users?userId=${post.userId}`);
+      const res = await axios.get(`/users/${post.userId}`);
       setUser(res.data);
     };
     fetchUser();
@@ -29,11 +29,9 @@ export default function Post({post}) {
       <div className="postTop">
         <div className="postTopLeft">
           <Link to={`profile/${user.username}`} >
-            <img src={user.profilePicture || PF+"person/noAvatar.png"} className="postProfileImg"/>
+            <img src={user.profilePicture || PF+"person/noAvatar.png"} className="postProfileImg" alt=""/>
             </Link>
-            <span className="postUsername">
-              {user.username}
-              </span>
+            <span className="postUsername">{user.username}</span>
             <span className="postDate">{format(post.createdAt)}</span>
         </div>
         <div className="postTopRight">
@@ -42,12 +40,12 @@ export default function Post({post}) {
       </div>
       <div className="postCenter">
         <span className="postText">{post?.desc}</span>
-        <img className="postImg" src={PF+post.img}/>
+        <img className="postImg" src={PF+post.img} alt=""/>
       </div>
       <div className="postBottom">
         <div className="postBottomLeft">
-            <img src={`${PF}like.png`} className="likeIcon" onClick={likeHandler}/>
-            <img src={`${PF}heart.png`} className="likeIcon"  onClick={likeHandler}/>
+            <img src={`${PF}like.png`} className="likeIcon" onClick={likeHandler} alt=""/>
+            <img src={`${PF}heart.png`} className="likeIcon"  onClick={likeHandler} alt=""/>
             <span className="postlikeCounter"> {like} people like it</span>
         </div>
         <div className="postBottomRight">
