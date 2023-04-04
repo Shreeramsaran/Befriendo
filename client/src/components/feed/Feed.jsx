@@ -6,16 +6,16 @@ import axios from "axios";
 
 export default function Feed({username}) {
   const [posts, setPosts] = useState([]);
-  
+  const {user}=useContext(AuthContext)
   useEffect(() => {
     const fetchPosts = async () => {
       const res = username
         ? await axios.get("/posts/profile/" + username)
-        : await axios.get("posts/timeline/6422d920e815d3ac4d33a990");
+        : await axios.get("posts/timeline/6422d920e815d3ac4d33a990"+user._id);
       setPosts(res.data);
     };
     fetchPosts();
-  }, [username]);
+  }, [username,user._id]);
   return (
     <div className="feed">
       <div className="feedWrapper">

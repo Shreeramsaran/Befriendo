@@ -10,7 +10,10 @@ export default function Post({post}) {
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-
+  const {user:curentuser} = useContext(AuthContext)
+  useEffect(()=>{
+    setIsLiked(post.likes.includes(currentUser._id))
+  },[currentUser._id,post.likes])
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(`/users/${post.userId}`);
@@ -20,6 +23,9 @@ export default function Post({post}) {
   }, [post.userId]);
 
   const likeHandler = ()=>{
+    try{
+      axios.put("/posts"+post._id+"/like",{userId:currentuser._id })
+    }catch(err)
     setLike(isLiked ? like-1:like+1);
     setIsLiked(!isLiked);
   }
@@ -29,7 +35,7 @@ export default function Post({post}) {
       <div className="postTop">
         <div className="postTopLeft">
           <Link to={`profile/${user.username}`} >
-            <img src={user.profilePicture || PF+"person/noAvatar.png"} className="postProfileImg" alt=""/>
+            <img src={PF+user.profilePicture || PF+"person/noAvatar.png"} alt="" className="postProfileImg" />
             </Link>
             <span className="postUsername">{user.username}</span>
             <span className="postDate">{format(post.createdAt)}</span>
