@@ -2,40 +2,56 @@ const router = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
-//REGISTER
+// REGISTER
 router.post("/register", async (req, res) => {
   try {
-    //generate new password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    const { username, email, password } = req.body;
 
-    //create new user
+    // Check if the username or email already exists in the database
+    const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+    if (existingUser) {
+      return res.status(409).json({ error: "Username or email already exists." });
+    }
+
+    // Generate new password hash
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Create new user
     const newUser = new User({
-      username: req.body.username,
-      email: req.body.email,
+      username,
+      email,
       password: hashedPassword,
     });
 
-    //save user and respond
+    // Save user and respond
     const user = await newUser.save();
     res.status(200).json(user);
   } catch (err) {
-    res.status(500).json(err)
+    res.status(500).json({ error: "Server error." });
   }
 });
 
-//LOGIN
+// LOGIN
 router.post("/login", async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
-    !user && res.status(404).json("user not found");
+    const { email, password } = req.body;
 
-    const validPassword = await bcrypt.compare(req.body.password, user.password)
-    !validPassword && res.status(400).json("wrong password")
+    // Find user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: "User not found." });
+    }
 
-    res.status(200).json(user)
+    // Compare passwords
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ error: "Invalid password." });
+    }
+
+    res.status(200).json(user);
   } catch (err) {
-    res.status(500).json(err)
+    res.status(500).json({ error: "Server error." });
   }
 });
 
