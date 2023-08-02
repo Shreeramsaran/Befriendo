@@ -1,11 +1,7 @@
 import "./share.css";
-import {
-  PermMedia,
-  Label,
-  Room,
-  EmojiEmotions,
-  Cancel,
-} from "@mui/icons-material";
+import { FiUpload } from 'react-icons/fi';
+import { BsFillTagFill, BsGeoAlt, BsEmojiSmile } from 'react-icons/bs';
+import { AiOutlineClose } from 'react-icons/ai';
 import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
@@ -62,13 +58,15 @@ export default function Share() {
         {file && (
           <div className="shareImgContainer">
             <img className="shareImg" src={URL.createObjectURL(file)} alt="" />
-            <Cancel className="shareCancelImg" onClick={() => setFile(null)} />
+            <button className="shareCancelImg" onClick={() => setFile(null)}>
+              <AiOutlineClose />
+            </button>
           </div>
         )}
         <form className="shareBottom" onSubmit={submitHandler}>
           <div className="shareOptions">
             <label htmlFor="file" className="shareOption">
-              <PermMedia htmlColor="tomato" className="shareIcon" />
+              <FiUpload className="shareIcon" />
               <span className="shareOptionText">Photo or Video</span>
               <input
                 style={{ display: "none" }}
@@ -79,15 +77,15 @@ export default function Share() {
               />
             </label>
             <div className="shareOption">
-              <Label htmlColor="blue" className="shareIcon" />
+              <BsFillTagFill className="shareIcon" />
               <span className="shareOptionText">Tag</span>
             </div>
             <div className="shareOption">
-              <Room htmlColor="green" className="shareIcon" />
+              <BsGeoAlt className="shareIcon" />
               <span className="shareOptionText">Location</span>
             </div>
             <div className="shareOption">
-              <EmojiEmotions htmlColor="goldenrod" className="shareIcon" />
+            <BsEmojiSmile className="shareIcon" />
               <span className="shareOptionText">Feelings</span>
             </div>
           </div>

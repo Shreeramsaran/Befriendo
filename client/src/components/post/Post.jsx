@@ -1,5 +1,5 @@
 import "./post.css";
-import { MoreVert } from "@mui/icons-material";
+import { FaEllipsisV } from 'react-icons/fa';
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { format } from "timeago.js";
@@ -52,7 +52,7 @@ export default function Post({ post }) {
             <span className="postDate">{format(post.createdAt)}</span>
           </div>
           <div className="postTopRight">
-            <MoreVert />
+               <FaEllipsisV />
           </div>
         </div>
         <div className="postCenter">
